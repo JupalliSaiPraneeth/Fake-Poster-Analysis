@@ -284,10 +284,147 @@
             flex-wrap: wrap
         }
 
+        .logo,
+        .header-right {
+            min-width: 0
+        }
+
+        .logo-name {
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .header-menu {
+            position: relative;
+            display: none
+        }
+
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, .02);
+            border: 1px solid var(--border2);
+            border-radius: 100px;
+            color: var(--text2);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: var(--fw-semibold);
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: transform .18s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
+            white-space: nowrap
+        }
+
+        .menu-btn:hover {
+            background: rgba(124, 107, 255, .08);
+            border-color: rgba(124, 107, 255, .28);
+            color: var(--accent)
+        }
+
+        .menu-btn:active {
+            transform: translateY(1px) scale(.99)
+        }
+
+        .menu-pop {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 10px);
+            min-width: 200px;
+            background: rgba(18, 18, 26, .98);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, .45);
+            display: none;
+            z-index: 70
+        }
+
+        html[data-theme="light"] .menu-pop {
+            background: rgba(255, 255, 255, .98)
+        }
+
+        html[data-theme="midnight"] .menu-pop {
+            background: rgba(12, 12, 30, .98)
+        }
+
+        .menu-pop.open {
+            display: block
+        }
+
+        .menu-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px 10px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: var(--fw-semibold);
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background .2s ease, border-color .2s ease
+        }
+
+        .menu-item .mi-left {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .menu-item:hover {
+            background: rgba(124, 107, 255, .10);
+            border-color: rgba(124, 107, 255, .25)
+        }
+
         @media (max-width:760px) {
             .header-right {
                 justify-content: flex-end;
-                gap: 10px
+                gap: 10px;
+                flex-wrap: nowrap
+            }
+
+            .header-actions {
+                display: none
+            }
+
+            .header-menu {
+                display: block
+            }
+        }
+
+        @media (max-width:900px) {
+            .header-actions {
+                display: none
+            }
+
+            .header-menu {
+                display: block
+            }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .header-actions {
+                display: none
+            }
+
+            .header-menu {
+                display: block
             }
         }
 
@@ -504,21 +641,33 @@
             display: flex;
             justify-content: center;
             gap: 0;
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(255, 255, 255, .02), rgba(255, 255, 255, .008));
+            border: 1px solid rgba(255, 255, 255, .06);
             border-radius: var(--r);
             overflow: hidden;
             max-width: 600px;
             margin: 0 auto;
+            box-shadow: 0 18px 60px rgba(0, 0, 0, .35);
             animation: fadeUp .8s .2s ease both
+        }
+
+        html[data-theme="light"] .stats-row {
+            background: linear-gradient(180deg, rgba(79, 70, 229, .06), rgba(255, 255, 255, .9));
+            border-color: rgba(79, 70, 229, .14);
+            box-shadow: 0 18px 50px rgba(15, 23, 42, .10)
+        }
+
+        html[data-theme="midnight"] .stats-row {
+            background: linear-gradient(180deg, rgba(124, 107, 255, .06), rgba(0, 0, 0, .0));
+            border-color: rgba(124, 107, 255, .14)
         }
 
         .stat-cell {
             flex: 1;
             padding: 18px 16px;
             text-align: center;
-            border-right: 1px solid var(--border);
-            transition: background .3s
+            border-right: 1px solid rgba(255, 255, 255, .06);
+            transition: background .25s ease, transform .18s ease
         }
 
         .stat-cell:last-child {
@@ -526,7 +675,11 @@
         }
 
         .stat-cell:hover {
-            background: var(--surface2)
+            background: rgba(124, 107, 255, .06)
+        }
+
+        .stat-cell:active {
+            transform: translateY(1px)
         }
 
         .stat-n {
@@ -540,9 +693,29 @@
             font-size: 11px;
             color: var(--text3);
             font-family: var(--font-mono);
+            letter-spacing: 2px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 3px
+            margin-top: 2px
+        }
+
+        @media (max-width:600px) {
+            .stats-row {
+                max-width: 100%;
+                border-radius: 18px
+            }
+
+            .stat-cell {
+                padding: 16px 10px
+            }
+
+            .stat-n {
+                font-size: 20px
+            }
+
+            .stat-l {
+                font-size: 10px;
+                letter-spacing: 1.6px
+            }
         }
 
         .section-label {
@@ -1505,14 +1678,27 @@
             z-index: 301;
             display: flex;
             flex-direction: column;
+            min-height: 0;
+            overflow: hidden;
             transform: translateX(100%);
             transition: transform .38s cubic-bezier(.22, 1, .36, 1);
             box-shadow: -20px 0 60px rgba(0, 0, 0, .5)
         }
 
+        .hist-body {
+            flex: 1;
+            overflow-y: auto;
+            min-height: 0;
+            max-height: 100%;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            touch-action: pan-y
+        }
+
         @media (max-width:600px) {
             .hist-drawer {
-                width: 100vw
+                width: 100vw;
+                height: 100dvh
             }
         }
 
@@ -1687,7 +1873,8 @@
         .hist-analytics {
             padding: 12px 14px;
             border-bottom: 1px solid var(--border);
-            flex-shrink: 0
+            flex-shrink: 0;
+            touch-action: pan-y
         }
 
         .ha-title {
@@ -1743,7 +1930,8 @@
             border: 1px solid var(--border);
             background: rgba(255, 255, 255, .015);
             border-radius: var(--r2);
-            padding: 10px 10px
+            padding: 10px 10px;
+            touch-action: pan-y
         }
 
         .ha-card h4 {
@@ -1757,7 +1945,8 @@
 
         .ha-canvas {
             width: 100% !important;
-            height: 160px !important
+            height: 160px !important;
+            touch-action: pan-y
         }
 
         @media(max-width:600px) {
@@ -1814,8 +2003,6 @@
 
         /* list */
         .hist-list {
-            flex: 1;
-            overflow-y: auto;
             padding: 10px
         }
 
@@ -2219,6 +2406,9 @@
         <symbol id="i-search" viewBox="0 0 24 24">
             <path d="M10 4a6 6 0 1 1 0 12A6 6 0 0 1 10 4Zm0-2a8 8 0 1 0 4.9 14.3l4.4 4.4a1 1 0 0 0 1.4-1.4l-4.4-4.4A8 8 0 0 0 10 2Z" />
         </symbol>
+        <symbol id="i-menu" viewBox="0 0 24 24">
+            <path d="M4 7a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Zm0 5a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Zm0 5a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Z" />
+        </symbol>
         <symbol id="i-history" viewBox="0 0 24 24">
             <path d="M12 6a1 1 0 0 1 1 1v5.1l3 1.7a1 1 0 1 1-1 1.8l-3.5-2A1 1 0 0 1 11 12V7a1 1 0 0 1 1-1Z" />
             <path d="M12 3a9 9 0 1 1-8.95 10h2.05a7 7 0 1 0 .66-4.02l1.52 1.52a1 1 0 0 1-1.41 1.41L2.64 8.68a1 1 0 0 1 0-1.41L5.87 4.04a1 1 0 1 1 1.41 1.41L5.7 7.03A8.97 8.97 0 0 1 12 3Z" />
@@ -2322,68 +2512,70 @@
             <button class="hist-close" onclick="closeHistory()" aria-label="Close history"><svg class="ico ico-18" aria-hidden="true"><use href="#i-close"></use></svg></button>
         </div>
 
-        <div class="hist-summary">
-            <div class="hs-cell">
-                <div class="hs-n" id="hsTot">0</div>
-                <div class="hs-l">Total</div>
+        <div class="hist-body" id="histBody">
+            <div class="hist-summary">
+                <div class="hs-cell">
+                    <div class="hs-n" id="hsTot">0</div>
+                    <div class="hs-l">Total</div>
+                </div>
+                <div class="hs-cell">
+                    <div class="hs-n fake" id="hsFake">0</div>
+                    <div class="hs-l">Fake</div>
+                </div>
+                <div class="hs-cell">
+                    <div class="hs-n real" id="hsReal">0</div>
+                    <div class="hs-l">Real</div>
+                </div>
+                <div class="hs-cell">
+                    <div class="hs-n sus" id="hsSus">0</div>
+                    <div class="hs-l">Suspicious</div>
+                </div>
             </div>
-            <div class="hs-cell">
-                <div class="hs-n fake" id="hsFake">0</div>
-                <div class="hs-l">Fake</div>
-            </div>
-            <div class="hs-cell">
-                <div class="hs-n real" id="hsReal">0</div>
-                <div class="hs-l">Real</div>
-            </div>
-            <div class="hs-cell">
-                <div class="hs-n sus" id="hsSus">0</div>
-                <div class="hs-l">Suspicious</div>
-            </div>
-        </div>
 
-        <div class="hist-filters">
-            <button class="hf-btn active" id="hfAll" onclick="setFilter('ALL')">All</button>
-            <button class="hf-btn" id="hfFake" onclick="setFilter('FAKE')"><svg class="ico ico-18" aria-hidden="true"><use href="#i-alert"></use></svg> Fake</button>
-            <button class="hf-btn" id="hfReal" onclick="setFilter('REAL')"><svg class="ico ico-18" aria-hidden="true"><use href="#i-check"></use></svg> Real</button>
-            <button class="hf-btn" id="hfSus" onclick="setFilter('SUSPICIOUS')"><svg class="ico ico-18" aria-hidden="true"><use href="#i-diamond"></use></svg> Suspicious</button>
-        </div>
+            <div class="hist-filters">
+                <button class="hf-btn active" id="hfAll" onclick="setFilter('ALL')">All</button>
+                <button class="hf-btn" id="hfFake" onclick="setFilter('FAKE')"><svg class="ico ico-18" aria-hidden="true"><use href="#i-alert"></use></svg> Fake</button>
+                <button class="hf-btn" id="hfReal" onclick="setFilter('REAL')"><svg class="ico ico-18" aria-hidden="true"><use href="#i-check"></use></svg> Real</button>
+                <button class="hf-btn" id="hfSus" onclick="setFilter('SUSPICIOUS')"><svg class="ico ico-18" aria-hidden="true"><use href="#i-diamond"></use></svg> Suspicious</button>
+            </div>
 
-        <div class="hist-analytics" id="histAnalytics">
-            <div class="ha-title">Analytics</div>
-            <div class="ha-kpis">
-                <div class="ha-kpi">
-                    <div class="ha-kpi-n" id="haTot">0</div>
-                    <div class="ha-kpi-l">In View</div>
+            <div class="hist-analytics" id="histAnalytics">
+                <div class="ha-title">Analytics</div>
+                <div class="ha-kpis">
+                    <div class="ha-kpi">
+                        <div class="ha-kpi-n" id="haTot">0</div>
+                        <div class="ha-kpi-l">In View</div>
+                    </div>
+                    <div class="ha-kpi">
+                        <div class="ha-kpi-n" id="haAvgConf">0%</div>
+                        <div class="ha-kpi-l">Avg Confidence</div>
+                    </div>
+                    <div class="ha-kpi">
+                        <div class="ha-kpi-n" id="haFakeRate">0%</div>
+                        <div class="ha-kpi-l">Fake Rate</div>
+                    </div>
+                    <div class="ha-kpi">
+                        <div class="ha-kpi-n" id="haRealRate">0%</div>
+                        <div class="ha-kpi-l">Real Rate</div>
+                    </div>
                 </div>
-                <div class="ha-kpi">
-                    <div class="ha-kpi-n" id="haAvgConf">0%</div>
-                    <div class="ha-kpi-l">Avg Confidence</div>
-                </div>
-                <div class="ha-kpi">
-                    <div class="ha-kpi-n" id="haFakeRate">0%</div>
-                    <div class="ha-kpi-l">Fake Rate</div>
-                </div>
-                <div class="ha-kpi">
-                    <div class="ha-kpi-n" id="haRealRate">0%</div>
-                    <div class="ha-kpi-l">Real Rate</div>
+                <div class="ha-charts">
+                    <div class="ha-card">
+                        <h4>Verdict Split</h4>
+                        <canvas class="ha-canvas" id="verdictChart"></canvas>
+                    </div>
+                    <div class="ha-card">
+                        <h4>Avg Scores</h4>
+                        <canvas class="ha-canvas" id="scoreChart"></canvas>
+                    </div>
                 </div>
             </div>
-            <div class="ha-charts">
-                <div class="ha-card">
-                    <h4>Verdict Split</h4>
-                    <canvas class="ha-canvas" id="verdictChart"></canvas>
-                </div>
-                <div class="ha-card">
-                    <h4>Avg Scores</h4>
-                    <canvas class="ha-canvas" id="scoreChart"></canvas>
-                </div>
-            </div>
-        </div>
 
-        <div class="hist-list" id="histList">
-            <div class="hist-empty">
-                <div class="he-ico"><svg class="ico ico-28" aria-hidden="true"><use href="#i-history"></use></svg></div>
-                <div class="he-txt">No analyses yet</div>
+            <div class="hist-list" id="histList">
+                <div class="hist-empty">
+                    <div class="he-ico"><svg class="ico ico-28" aria-hidden="true"><use href="#i-history"></use></svg></div>
+                    <div class="he-txt">No analyses yet</div>
+                </div>
             </div>
         </div>
 
@@ -2411,13 +2603,31 @@
                                 <div class="chip-dot"></div>OCR + PDF
                             </div>
                         </div>
-                        <button class="theme-btn" id="themeBtn" onclick="cycleTheme()" aria-label="Change theme">
-                            <svg class="ico ico-18" aria-hidden="true"><use href="#i-palette"></use></svg>
-                            <span id="themeLbl">Dark</span>
-                        </button>
-                        <button class="history-btn" onclick="openHistory()">
-                            <svg class="ico ico-18" aria-hidden="true"><use href="#i-history"></use></svg> History <span class="h-count" id="hBtnCount">0</span>
-                        </button>
+                        <div class="header-actions">
+                            <button class="theme-btn" id="themeBtn" onclick="cycleTheme()" aria-label="Change theme">
+                                <svg class="ico ico-18" aria-hidden="true"><use href="#i-palette"></use></svg>
+                                <span id="themeLbl">Dark</span>
+                            </button>
+                            <button class="history-btn" onclick="openHistory()">
+                                <svg class="ico ico-18" aria-hidden="true"><use href="#i-history"></use></svg> History <span class="h-count" id="hBtnCount">0</span>
+                            </button>
+                        </div>
+                        <div class="header-menu">
+                            <button class="menu-btn" id="menuBtn" onclick="toggleHeaderMenu(event)" aria-label="Open menu" aria-haspopup="true" aria-expanded="false">
+                                <svg class="ico ico-18" aria-hidden="true"><use href="#i-menu"></use></svg>
+                                <span class="h-count" id="mBtnCount">0</span>
+                            </button>
+                            <div class="menu-pop" id="headerMenu" role="menu" aria-label="Header menu">
+                                <button class="menu-item" role="menuitem" onclick="cycleTheme(); closeHeaderMenu();">
+                                    <span class="mi-left"><svg class="ico ico-18" aria-hidden="true"><use href="#i-palette"></use></svg> Theme</span>
+                                    <span id="mThemeLbl">Dark</span>
+                                </button>
+                                <button class="menu-item" role="menuitem" onclick="openHistory(); closeHeaderMenu();">
+                                    <span class="mi-left"><svg class="ico ico-18" aria-hidden="true"><use href="#i-history"></use></svg> History</span>
+                                    <span class="h-count" id="mHistCount">0</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2695,6 +2905,8 @@ WhatsApp: +91-98XXXXXXXX"></textarea>
         let history = [];
         let histFilter = 'ALL';
         let expandedId = null;
+
+        let bodyScrollY = 0;
 
         let theme = 'dark';
 
@@ -2990,6 +3202,8 @@ WhatsApp: +91-98XXXXXXXX"></textarea>
 
             const lbl = document.getElementById('themeLbl');
             if (lbl) lbl.textContent = theme === 'dark' ? 'Dark' : theme === 'light' ? 'Light' : 'Midnight';
+            const mLbl = document.getElementById('mThemeLbl');
+            if (mLbl) mLbl.textContent = theme === 'dark' ? 'Dark' : theme === 'light' ? 'Light' : 'Midnight';
             setSnowTheme(theme);
             updateAnalytics();
         }
@@ -3011,6 +3225,30 @@ WhatsApp: +91-98XXXXXXXX"></textarea>
             startSnow();
             startHeroTyping();
             startLogoTyping();
+        })();
+
+        function toggleHeaderMenu(e) {
+            try { if (e && e.stopPropagation) e.stopPropagation(); } catch { }
+            const pop = document.getElementById('headerMenu');
+            const btn = document.getElementById('menuBtn');
+            if (!pop || !btn) return;
+            const next = !pop.classList.contains('open');
+            if (next) pop.classList.add('open');
+            else pop.classList.remove('open');
+            btn.setAttribute('aria-expanded', next ? 'true' : 'false');
+        }
+
+        function closeHeaderMenu() {
+            const pop = document.getElementById('headerMenu');
+            const btn = document.getElementById('menuBtn');
+            if (pop) pop.classList.remove('open');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+
+        (function initHeaderMenu() {
+            document.addEventListener('click', () => closeHeaderMenu());
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeHeaderMenu(); });
+            window.addEventListener('resize', () => closeHeaderMenu());
         })();
 
         function cssVar(name, fallback) {
@@ -3464,6 +3702,10 @@ Now output ONLY a JSON object (no markdown fences, no extra text):
             document.getElementById('hsReal').textContent = real;
             document.getElementById('hsSus').textContent = sus;
             document.getElementById('hBtnCount').textContent = tot;
+            const mBtnCount = document.getElementById('mBtnCount');
+            if (mBtnCount) mBtnCount.textContent = tot;
+            const mHistCount = document.getElementById('mHistCount');
+            if (mHistCount) mHistCount.textContent = tot;
             document.getElementById('histSubLabel').textContent = `${tot} anal${tot === 1 ? 'ysis' : 'yses'} this session`;
         }
 
@@ -3559,13 +3801,25 @@ Now output ONLY a JSON object (no markdown fences, no extra text):
         function openHistory() {
             document.getElementById('histBackdrop').classList.add('open');
             document.getElementById('histDrawer').classList.add('open');
+            bodyScrollY = window.scrollY || 0;
+            document.body.style.position = 'fixed';
+            document.body.style.top = (-bodyScrollY) + 'px';
+            document.body.style.left = '0';
+            document.body.style.right = '0';
+            document.body.style.width = '100%';
             document.body.style.overflow = 'hidden';
             setTimeout(() => { initCharts(); updateAnalytics(); }, 0);
         }
         function closeHistory() {
             document.getElementById('histBackdrop').classList.remove('open');
             document.getElementById('histDrawer').classList.remove('open');
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.left = '';
+            document.body.style.right = '';
+            document.body.style.width = '';
             document.body.style.overflow = '';
+            window.scrollTo(0, bodyScrollY || 0);
         }
 
         function clearHistory() {
